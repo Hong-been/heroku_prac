@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const todos = require("./routes/todos");
 const app = express();
 
-const {PORT, MONGO_URI} = process.env;
+const PORT = process.env.PORT || 3000;
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
@@ -19,7 +19,7 @@ app.use("/", express.static("public"));
 app.use("/todos", todos);
 
 mongoose
-	.connect(MONGO_URI)
+	.connect(process.env.MONGODB_URI)
 	.then(() => console.log(`✅ Connected to DB`))
 	.catch((e) => console.log(`❌ Error on DB connection: ${e}`));
 
